@@ -1,0 +1,22 @@
+body {
+    background-color: rgb(199, 199, 199);
+}
+
+#click-button {
+    width: 100px;
+    cursor: pointer;
+}
+
+.pane1, .pane2, .pane3 {
+    width: 500px;
+    height: 200px;
+    border-top: 1px solid green;
+    border-bottom: 1px solid green;
+    margin-top: 10px;
+    padding: 15px;
+    background-color : yellowgreen;
+}
+
+.remove-button1, .remove-button2, .remove-button3 {
+    margin-left: 450px;
+}
