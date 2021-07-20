@@ -1,32 +1,78 @@
-let button = document.querySelector('#click-button');
-button.onclick = showMenu;
-let ishide = true;
-let menu = document.createElement('div');
-menu.innerHTML = 'First <br> second <br> third'
-button.appendChild(menu);
-menu.style.display = 'none';
-function showMenu() {
-    if (ishide) {
-        menu.style.display = 'block';
-        ishide = false;
-    } else {
-        menu.style.display = 'none';
-        ishide = true;  
-    }
+let liArray = document.querySelectorAll('li');
+let treeContainer = document.querySelector('.tree');
+treeContainer.onclick = function (event) {
+    let tg = event.target;
+    if (tg.nodeName != 'SPAN') return;
+    let childrenContainer = tg.parentNode.querySelector('ul');
+    if (childrenContainer) childrenContainer.hidden = !childrenContainer.hidden;
 }
 
-let removePar1 = document.querySelector('.remove-button1');
-let par1 = document.querySelector('.pane1');
-removePar1.onclick = function() {
-    par1.style.display = 'none';
+
+
+let paneContainer = document.querySelector('.pane-container');
+paneContainer.onclick = function (event) {
+    let tag = event.target;
+    let pane = tag.dataset.div;
+    if (pane == undefined) return;
+    let div = document.querySelector('.' + pane);
+    div.style.display = 'none';
 }
-let removePar2 = document.querySelector('.remove-button2');
-let par2 = document.querySelector('.pane2');
-removePar2.onclick = function() {
-    par2.style.display = 'none';
+
+let block;
+document.onmouseover = function (event) {
+    let tg = event.target;
+    let text = tg.dataset.tooltip;
+    if (!text) return;
+    let coords = tg.getBoundingClientRect();
+    block = document.createElement('div');
+    block.innerHTML = text;
+    document.body.append(block);
+    block.className = 'tooltip';
+
+    let left = coords.left + (tg.offsetWidth - block.offsetWidth) / 2;
+    if (left < 0) left = 0;
+
+    let top = coords.top - block.offsetHeight - 5;
+    if (top < 0) {
+        top = coords.top + tg.offsetHeight + 5;
+    }
+
+    block.style.left = left + 'px';
+    block.style.top = top + 'px';
 }
-let removePar3 = document.querySelector('.remove-button3');
-let par3 = document.querySelector('.pane3');
-removePar3.onclick = function() {
-    par3.style.display = 'none';
+
+document.onmouseout = function (e) {
+
+    if (block) {
+        block.remove();
+        block = null;
+    }
+
 }
+
+
+let acontent = document.querySelector('#a-content');
+acontent.addEventListener('click', function (event) {
+    let target = event.target.closest('a');
+    if (!target.nodeName == 'A') return;
+    let href = target.getAttribute('href');
+    let answer = confirm('Do you want to leave this page?');
+    if (!answer) {
+        event.preventDefault();
+    }
+});
+
+let tcomand = document.querySelector('#tcomand');
+let arrayChild = tcomand.children;
+tcomand.addEventListener('click', function (event) {
+    let target = event.target;
+    if (!event.ctrlKey) {
+        for (let i = 0; i < arrayChild.length; i++) {
+            arrayChild[i].style.backgroundColor = 'rgb(199, 199, 199)';
+        }
+    }
+    target.style.backgroundColor = 'yellow';
+});
+tcomand.onmousedown = function() {
+    return false;
+} 

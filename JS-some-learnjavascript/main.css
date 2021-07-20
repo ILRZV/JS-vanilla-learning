@@ -1,0 +1,30 @@
+.paragraphContainer {
+    width: 400px;
+    margin-left: 39%;
+    margin-right: 50%;  
+    margin-top: 60px;  
+    background-color: rgb(186, 191, 196);
+    padding: 10px;
+}
+
+.tooltip {
+    background-color: antiquewhite;
+    position: fixed;
+    padding: 4px;
+}
+
+.dropField {
+    background-color: bisque;
+    width: 400px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.dropItem {
+    background-color: blue;
+    width: 10px;
+    height: 30px;
+    position: relative;
+    top: -5px;
+    border-radius: 4px;
+}

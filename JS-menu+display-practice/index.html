@@ -2,38 +2,94 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main.css">
+  <title>Document</title>
 </head>
 
 <body>
-    <ul>
-        <li id = 'click-button'>Click me</li>
-    </ul>
+  <ul class="tree" id="tree">
+    <li><span>Животные</span>
+      <ul>
+        <li><span>Млекопитающие</span>
+          <ul>
+            <li><span>Коровы</span></li>
+            <li><span>Кошки</span></li>
+            <li><span>Собаки</span></li>
+            <li><span>Люди</span></li>
+          </ul>
+        </li>
+        <li><span>Другие</span>
+          <ul>
+            <li><span>Змеи</span></li>
+            <li><span>Птицы</span></li>
+            <li><span>Ящерицы</span></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><span>Рыбы</span>
+      <ul>
+        <li><span>Аквариумнык</span>
+          <ul>
+            <li><span>Гуппи</span></li>
+            <li><span>Скалярии</span></li>
+          </ul>
+        </li>
+        <li><span>Морские</span>
+          <ul>
+            <li><span>Морская форель</span></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
 
-    <div>
-      <div class="pane1">
-        <button class="remove-button1">[x]</button>
-        <h3>Лошадь</h3>
-        <p>Домашняя лошадь — животное семейства непарнокопытных, одомашненный и единственный сохранившийся подвид дикой лошади, вымершей в дикой природе, за исключением небольшой популяции лошади Пржевальского.</p>
-      </div>
-      <div class="pane2">
-        <button class="remove-button2">[x]</button>
-        <h3>Осёл</h3>
-        <p>Домашний осёл (лат. Equus asinus asinus), или ишак, — одомашненный подвид дикого осла (Equus asinus), сыгравший важную историческую роль в развитии хозяйства и культуры человека и по-прежнему широко в хозяйстве многих развивающихся стран.</p>
-      </div>
-      <div class="pane3">
-        <button class="remove-button3">[x]</button>
-        <h3>Кошка</h3>
-        <p>Кошка, или домашняя кошка (лат. Felis silvestris catus), — домашнее животное, одно из наиболее популярных(наряду с собакой) «животных-компаньонов». Являясь одиночным охотником на грызунов и других мелких животных, кошка — социальное животное, использующее для общения широкий диапазон звуковых сигналов.</p>
-      </div>
+  <div class="pane-container">
+    <div class="pane1">
+      <button class="remove-button" data-div='pane1'>[x]</button>
+      <h3>Лошадь</h3>
+      <p>Домашняя лошадь — животное семейства непарнокопытных, одомашненный и единственный сохранившийся подвид дикой
+        лошади, вымершей в дикой природе, за исключением небольшой популяции лошади Пржевальского.</p>
     </div>
-  
+    <div class="pane2">
+      <button class="remove-button" data-div='pane2'>[x]</button>
+      <h3>Осёл</h3>
+      <p>Домашний осёл (лат. Equus asinus asinus), или ишак, — одомашненный подвид дикого осла (Equus asinus), сыгравший
+        важную историческую роль в развитии хозяйства и культуры человека и по-прежнему широко в хозяйстве многих
+        развивающихся стран.</p>
+    </div>
+    <div class="pane3">
+      <button class="remove-button" data-div='pane3'>[x]</button>
+      <h3>Кошка</h3>
+      <p>Кошка, или домашняя кошка (лат. Felis silvestris catus), — домашнее животное, одно из наиболее
+        популярных(наряду с собакой) «животных-компаньонов». Являясь одиночным охотником на грызунов и других мелких
+        животных, кошка — социальное животное, использующее для общения широкий диапазон звуковых сигналов.</p>
+    </div>
+  </div>
 
-    <script src = 'main.js'></script>
+  <button id='button1' data-tooltip="эта подсказка длиннее, чем элемент">Подсказка1</button>
+  <button id='button2' data-tooltip="HTML<br>подсказка">Подсказка2</button>
+  <div id='a-content'>
+    <p>Lorem ipsum dolor sit amet consectetur <a href="">LONLY LINK</a> adipisicing elit. Adipisci, a reiciendis.
+      Recusandae esse,<a href="">Second link</a> eligendi sequi quam est amet modi quia.</p>
+  </div>
+
+  <input onmousemove="this.value=event.clientX+':'+event.clientY" onmousedown='return false'
+    value="Наведи на меня мышь">
+
+  <h4>Небольшой файловый менеджер(Ctrl + mouse)</h4>
+  <ul id = 'tcomand'>
+    <li>Geometry</li>
+    <li>Files</li>
+    <li>Works</li>
+    <li>Family</li>
+    <li>Pets</li>
+  </ul>
+
+  <script src='main.js'></script>
 
 
 </body>
