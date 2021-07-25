@@ -21,3 +21,10 @@
     color: red;
     align-self: start;
 }
+.scrollArrow {
+    font-size: 40px;
+    position: fixed;
+    margin: 10px;
+    visibility: hidden;
+    cursor: pointer;
+}
