@@ -47,15 +47,19 @@ function makeBlock(name, text, link, category) {
     let nameContainer = document.createElement('h4');
     let textContainer = document.createElement('p');
     let linkContainer = document.createElement('a');
+    let button = document.createElement('button');
     nameContainer.textContent = name;
     textContainer.innerHTML = text;
     linkContainer.textContent = link;
+    button.textContent = 'Add to cart'
     nameContainer.setAttribute('class', 'blockTitle');
     textContainer.setAttribute('class', 'blockText');
     linkContainer.setAttribute('class', 'blockLink');
+    button.setAttribute('class', 'blockButton');
     r.append(nameContainer);
     r.append(textContainer);
     r.append(linkContainer);
+    r.append(button);
     r.dataset.category = category;
     r.setAttribute('class', 'rond');
     container.append(r);
@@ -137,5 +141,32 @@ function sortedNemPage(event) {
         }
 
 
+    }
+}
+
+window.addEventListener('click', localStorageAdd);
+let p = sessionStorage.length;
+let storageCounter = document.querySelector('.cart');
+storageCounter.textContent = p;
+function localStorageAdd(event) {
+    if(event.target.className == 'blockButton') {
+        let target = event.target.closest('.rond');
+        let saveObj = {};
+        let childArray = target.childNodes;
+        for(let i = 0; i < childArray.length; i++) {
+            saveObj[i] = childArray[i].innerHTML;
+        }
+        sessionStorage.setItem(p, JSON.stringify(saveObj));
+        storageCounter.textContent = sessionStorage.length - 1;
+        p++;
+    }
+
+    if(event.target.className == 'header-marks') {
+        while (container.hasChildNodes()) {
+            container.removeChild(container.firstChild);
+        }   
+        window.onscroll = function() {};
+        for(let i = 0; i < sessionStorage.length; i++) {
+        }
     }
 }
