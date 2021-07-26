@@ -1,0 +1,141 @@
+let showBtn = document.querySelector('.show_button');
+let dropdownContent = document.querySelector('.dropdown_content');
+
+
+showBtn.addEventListener('click', function () {
+    if (dropdownContent.style.display == 'none') {
+        dropdownContent.style.display = 'block';
+    } else {
+        dropdownContent.style.display = 'none';
+    }
+})
+
+window.addEventListener('click', function (event) {
+    let target = event.target;
+    if (target.className != 'show_button') {
+        dropdownContent.style.display = 'none';
+
+    }
+})
+
+function filterFunction() {
+    let input = document.querySelector('#myInput');
+    let filter = input.value.toUpperCase();
+    let a = dropdownContent.getElementsByTagName('a');
+    for (let i = 0; i < a.length; i++) {
+        if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+        } else {
+            a[i].style.display = "none";
+        }
+    }
+}
+
+let container = document.querySelector('.container');
+
+let scrollArrow = document.createElement('div');
+scrollArrow.className = 'scrollArrow';
+scrollArrow.innerHTML = "&#9650";
+document.body.prepend(scrollArrow);
+
+scrollArrow.onclick = function (event) {
+    window.scrollTo(0, 0);
+}
+
+function makeBlock(name, text, link, category) {
+    let r = document.createElement('div');
+    let nameContainer = document.createElement('h4');
+    let textContainer = document.createElement('p');
+    let linkContainer = document.createElement('a');
+    nameContainer.textContent = name;
+    textContainer.innerHTML = text;
+    linkContainer.textContent = link;
+    nameContainer.setAttribute('class', 'blockTitle');
+    textContainer.setAttribute('class', 'blockText');
+    linkContainer.setAttribute('class', 'blockLink');
+    r.append(nameContainer);
+    r.append(textContainer);
+    r.append(linkContainer);
+    r.dataset.category = category;
+    r.setAttribute('class', 'rond');
+    container.append(r);
+}
+
+
+fetchUrl("https://rakuten_webservice-rakuten-marketplace-item-ranking-v1.p.rapidapi.com/services/api/IchibaItem/Ranking/20170628");
+
+function fetchUrl(url) {
+    fetch(url, {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "1d7002d083msh695e03dcabd9c6dp189c3fjsnd4b4f9c299e5",
+                "x-rapidapi-host": "rakuten_webservice-rakuten-marketplace-item-ranking-v1.p.rapidapi.com"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            for (let i = 1; i < json.Items.length; i++) {
+                makeBlock(json.Items[i].Item.itemName.substr(0, 30), `<img src="${json.Items[i].Item.mediumImageUrls[0].imageUrl}" alt="" width="150px" height="150px">`, json.Items[i].Item.itemPrice + '¥');
+            }
+        })
+        .catch(err => {
+            console.error(err);
+        });
+}
+newScroll('https://rakuten_webservice-rakuten-marketplace-item-ranking-v1.p.rapidapi.com/services/api/IchibaItem/Ranking/20170628?page=');
+
+function newScroll(url) {
+    window.onscroll = scrollFunction;
+    let page = 2;
+
+    function scrollFunction() {
+        if (page < 29) {
+            if (pageYOffset > document.documentElement.clientHeight) {
+                scrollArrow.style.visibility = 'visible';
+            }
+            if (pageYOffset < document.documentElement.clientHeight) {
+                scrollArrow.style.visibility = 'hidden';
+            }
+            let maxScroll = document.body.scrollHeight - document.documentElement.clientHeight;
+            if (maxScroll - pageYOffset < 200) {
+                fetchUrl(url + page);
+                console.log(url)
+                page++;
+            }
+        }
+    }
+}
+
+window.addEventListener('click', sortedNemPage);
+
+function sortedNemPage(event) {
+    let target = event.target;
+    if (target.closest('nav') && target.dataset.category) {
+        let category = target.dataset.category;
+        while (container.hasChildNodes()) {
+            container.removeChild(container.firstChild);
+        }
+        if (category == 0) {
+            fetchUrl('https://rakuten_webservice-rakuten-marketplace-item-ranking-v1.p.rapidapi.com/services/api/IchibaItem/Ranking/20170628');
+
+            newScroll('https://rakuten_webservice-rakuten-marketplace-item-ranking-v1.p.rapidapi.com/services/api/IchibaItem/Ranking/20170628?page=')
+            return;
+        }
+
+        if (category == 1) {
+            fetchUrl('https://rakuten_webservice-rakuten-marketplace-item-ranking-v1.p.rapidapi.com/services/api/IchibaItem/Ranking/20170628?sex=1');
+
+            newScroll('https://rakuten_webservice-rakuten-marketplace-item-ranking-v1.p.rapidapi.com/services/api/IchibaItem/Ranking/20170628?sex=1&page=')
+            return;
+        }
+
+        if (category == 2) {
+            fetchUrl('https://rakuten_webservice-rakuten-marketplace-item-ranking-v1.p.rapidapi.com/services/api/IchibaItem/Ranking/20170628?sex=0');
+
+            newScroll('https://rakuten_webservice-rakuten-marketplace-item-ranking-v1.p.rapidapi.com/services/api/IchibaItem/Ranking/20170628?sex=0&page=')
+            return;
+        }
+
+
+    }
+}

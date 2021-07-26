@@ -10,28 +10,31 @@
 </head>
 
 <body>
-    <style>
-        .left {
-            float: left;
-            width: 30%;
-            background: #aef;
-        }
+    <header class="header">
+        <nav class = 'dropdown_content' style = 'display : none'>
+            <a href="#" id = 'no-nav' data-category="0">None</a>
+            <a href="#" id = 'women-nav' data-category="1">For women</a>
+            <a href="#" id = 'men-nav' data-category="2">For men</a>
+            
+        </nav>
+        <button class="show_button">Show menu</button>
+       <div class="logo">
+           <span>BLUEBERRIES</span>
+       </div>
+       <div class="input">
+           <input type="text">
+           <button></button>
+       </div>
+       <div class="header-marks">
+           <div class = 'adress'></div>
+           <div class = 'Enter'></div>
+           <div class = 'Cart'></div>
+       </div>
 
-        .right {
-            float: right;
-            width: 70%;
-            background: tan;
-            border-left: 1px solid black;
-            padding-left: 10px;
-        }
-    </style>
+    </header>
 
-    <div class="left">
-        Левая<br>Колонка
-    </div>
-    <div class="right">
-        Правая<br>Колонка<br>...
-    </div>
+    <div class="container"></div>
+    <script src="main.js"></script>
 </body>
 
 </html>

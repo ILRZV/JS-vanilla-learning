@@ -1,13 +1,13 @@
 let container = document.querySelector('.container');
 
-let scrollArrow = document.createElement('div');
-scrollArrow.className = 'scrollArrow';
-scrollArrow.innerHTML = "&#9650";
-document.body.prepend(scrollArrow);
+// let scrollArrow = document.createElement('div');
+// scrollArrow.className = 'scrollArrow';
+// scrollArrow.innerHTML = "&#9650";
+// document.body.prepend(scrollArrow);
 
-scrollArrow.onclick = function (event) {
-    window.scrollTo(0, 0);
-}
+// scrollArrow.onclick = function (event) {
+//     window.scrollTo(0, 0);
+// }
 
 function makeBlock(name, text, link) {
     let r = document.createElement('div');
