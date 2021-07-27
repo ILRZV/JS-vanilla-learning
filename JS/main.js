@@ -95,7 +95,7 @@ function makeRandom() {
                 if(tick == 0) {
                     cell.style.backgroundColor = "black";
                 } 
-                if(tick == 1) {
+                if(tick == 1 || tick == 2) {
                     cell.style.backgroundColor = "white";
                 }
             }, tickMs);

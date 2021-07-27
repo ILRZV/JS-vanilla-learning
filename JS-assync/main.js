@@ -42,7 +42,7 @@ scrollArrow.onclick = function (event) {
     window.scrollTo(0, 0);
 }
 
-function makeBlock(name, text, link, category) {
+function makeBlock(name, text, link) {
     let r = document.createElement('div');
     let nameContainer = document.createElement('h4');
     let textContainer = document.createElement('p');
@@ -60,7 +60,24 @@ function makeBlock(name, text, link, category) {
     r.append(textContainer);
     r.append(linkContainer);
     r.append(button);
-    r.dataset.category = category;
+    r.setAttribute('class', 'rond');
+    container.append(r);
+}
+
+function makeCartBlock(name, text, link) {
+    let r = document.createElement('div');
+    let nameContainer = document.createElement('h4');
+    let textContainer = document.createElement('p');
+    let linkContainer = document.createElement('a');
+    nameContainer.textContent = name;
+    textContainer.innerHTML = text;
+    linkContainer.textContent = link;
+    nameContainer.setAttribute('class', 'blockTitle');
+    textContainer.setAttribute('class', 'blockText');
+    linkContainer.setAttribute('class', 'blockLink');
+    r.append(nameContainer);
+    r.append(textContainer);
+    r.append(linkContainer);
     r.setAttribute('class', 'rond');
     container.append(r);
 }
@@ -93,20 +110,19 @@ function newScroll(url) {
     let page = 2;
 
     function scrollFunction() {
-        if (page < 29) {
-            if (pageYOffset > document.documentElement.clientHeight) {
-                scrollArrow.style.visibility = 'visible';
-            }
-            if (pageYOffset < document.documentElement.clientHeight) {
-                scrollArrow.style.visibility = 'hidden';
-            }
-            let maxScroll = document.body.scrollHeight - document.documentElement.clientHeight;
-            if (maxScroll - pageYOffset < 200) {
-                fetchUrl(url + page);
-                console.log(url)
-                page++;
-            }
+        if (pageYOffset > document.documentElement.clientHeight) {
+            scrollArrow.style.visibility = 'visible';
         }
+        if (pageYOffset < document.documentElement.clientHeight) {
+            scrollArrow.style.visibility = 'hidden';
+        }
+        let maxScroll = document.body.scrollHeight - document.documentElement.clientHeight;
+        if (maxScroll - pageYOffset < 200) {
+            fetchUrl(url + page);
+            console.log(url)
+            page++;
+        }
+
     }
 }
 
@@ -148,25 +164,60 @@ window.addEventListener('click', localStorageAdd);
 let p = sessionStorage.length;
 let storageCounter = document.querySelector('.cart');
 storageCounter.textContent = p;
+let sum = 0;
+
 function localStorageAdd(event) {
-    if(event.target.className == 'blockButton') {
+    if (event.target.className == 'blockButton') {
         let target = event.target.closest('.rond');
         let saveObj = {};
         let childArray = target.childNodes;
-        for(let i = 0; i < childArray.length; i++) {
+        for (let i = 0; i < childArray.length; i++) {
             saveObj[i] = childArray[i].innerHTML;
         }
+        sum += +saveObj[2].slice(0, -1);
         sessionStorage.setItem(p, JSON.stringify(saveObj));
         storageCounter.textContent = sessionStorage.length - 1;
         p++;
     }
 
-    if(event.target.className == 'header-marks') {
+    if (event.target.className == 'header-marks' || event.target.closest('.header-marks')) {
         while (container.hasChildNodes()) {
             container.removeChild(container.firstChild);
-        }   
-        window.onscroll = function() {};
-        for(let i = 0; i < sessionStorage.length; i++) {
         }
+        window.onscroll = function () {};
+        console.log(sessionStorage)
+        for (let i = 0; i < sessionStorage.length - 1; i++) {
+            let saveObj = JSON.parse(sessionStorage.getItem(i));
+            makeCartBlock(saveObj[0], saveObj[1], saveObj[2]);
+        }
+        showSum();
+    }
+}
+
+function showSum() {
+    let sumContainer = document.createElement('div');
+    let sumText = document.createElement('span');
+    let sumValue = document.createElement('span')
+    let clearButton = document.createElement('button');
+    sumText.textContent = 'Your sum: ';
+    sumValue.textContent = sum;
+    clearButton.textContent = 'Clear cart';
+    sumText.setAttribute('class', 'sumText');
+    sumValue.setAttribute('class', 'sumValue');
+    clearButton.setAttribute('class', 'clearButton');
+    sumContainer.append(sumText);
+    sumContainer.append(sumValue);
+    sumContainer.append(clearButton);
+    sumContainer.setAttribute('class', 'sumContainer ');
+    container.append(sumContainer);
+
+    clearButton.onclick = function () {
+        sessionStorage.clear();
+        while (container.hasChildNodes()) {
+            container.removeChild(container.firstChild);
+        }
+        storageCounter.textContent = 0;
+        p = 0;
+        sum = 0;
     }
 }
