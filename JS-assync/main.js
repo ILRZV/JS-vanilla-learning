@@ -87,12 +87,12 @@ fetchUrl("https://rakuten_webservice-rakuten-marketplace-item-ranking-v1.p.rapid
 
 function fetchUrl(url) {
     fetch(url, {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-key": "1d7002d083msh695e03dcabd9c6dp189c3fjsnd4b4f9c299e5",
-                "x-rapidapi-host": "rakuten_webservice-rakuten-marketplace-item-ranking-v1.p.rapidapi.com"
-            }
-        })
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-key": "1d7002d083msh695e03dcabd9c6dp189c3fjsnd4b4f9c299e5",
+            "x-rapidapi-host": "rakuten_webservice-rakuten-marketplace-item-ranking-v1.p.rapidapi.com"
+        }
+    })
         .then(response => response.json())
         .then(json => {
             for (let i = 1; i < json.Items.length; i++) {
@@ -165,7 +165,6 @@ let p = sessionStorage.length;
 let storageCounter = document.querySelector('.cart');
 storageCounter.textContent = p;
 let sum = 0;
-
 function localStorageAdd(event) {
     if (event.target.className == 'blockButton') {
         let target = event.target.closest('.rond');
@@ -184,7 +183,7 @@ function localStorageAdd(event) {
         while (container.hasChildNodes()) {
             container.removeChild(container.firstChild);
         }
-        window.onscroll = function () {};
+        window.onscroll = function () { };
         console.log(sessionStorage)
         for (let i = 0; i < sessionStorage.length - 1; i++) {
             let saveObj = JSON.parse(sessionStorage.getItem(i));

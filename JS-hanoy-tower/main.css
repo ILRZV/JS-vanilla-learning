@@ -1,0 +1,17 @@
+.container {
+    background-color: antiquewhite;
+    width: 800px;
+    height: 600px;
+    display: flex;
+    justify-content: space-around;
+    margin: 100px;
+}
+
+.tower1, .tower2, .tower3 {
+    background-color: rgb(111, 92, 66);
+    width: 200px;
+    height: 600px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
